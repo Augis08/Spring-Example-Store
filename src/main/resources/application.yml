@@ -1,0 +1,16 @@
+lt:
+  sda:
+    store:
+      prices:
+        apple-price: 6.99
+        orange-price: 4.39
+        carrot-price: 2.99
+        potato-price: 0.99
+      stocks:
+        apple: 99
+        orange: 88
+        carrot: 11
+        potato: 2
+
+server:
+  port: 8085
