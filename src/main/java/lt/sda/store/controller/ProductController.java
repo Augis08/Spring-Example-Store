@@ -34,7 +34,7 @@ public class ProductController {
 
     @PostMapping(value = "/buy")
     public void buyProducts(@RequestBody Map<ProductType, Integer> shoppingCart) {
-        productService.adjustProductQuantity(shoppingCart);
+        productService.updateProductsStocks(shoppingCart);
     }
 
     @GetMapping(value = "/stocks")

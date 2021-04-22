@@ -42,7 +42,7 @@ public class ProductService {
         return productsStocks;
     }
 
-    public void adjustProductQuantity(Map<ProductType, Integer> shoppingCart) {
+    public void updateProductsStocks(Map<ProductType, Integer> shoppingCart) {
         StockValidator.validateStock(productsStocks, shoppingCart);
         shoppingCart.forEach((product, amount) -> productsStocks.put(product, productsStocks.get(product) - amount));
     }
