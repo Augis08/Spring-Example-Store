@@ -29,12 +29,18 @@ public class ProductController {
 
     @PostMapping(value = "/cart")
     public Double calculateCartPrice(@RequestBody Map<ProductType, Integer> shoppingCart) {
-        productService.adjustProductQuantity(shoppingCart);
         return productService.calculateCartPrice(shoppingCart);
     }
 
-    @GetMapping(value = "/stocks")
-    public Map<ProductType, Integer> getAllProductsStock() {
+    @PostMapping(value = "/cart/buy")
+    public Map<ProductType, Integer> buyProducts(@RequestBody Map<ProductType, Integer> shoppingCart) {
+        productService.adjustProductQuantity(shoppingCart);
         return productService.getAllProductsStocks();
     }
- }
+
+
+    @GetMapping(value = "/stocks")
+    public Map<ProductType, Integer> getAllProductsStocks() {
+        return productService.getAllProductsStocks();
+    }
+}

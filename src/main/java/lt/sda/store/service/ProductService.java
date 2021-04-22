@@ -28,6 +28,7 @@ public class ProductService {
     }
 
     public Double calculateCartPrice(Map<ProductType, Integer> shoppingCart) {
+        StockValidator.validateStock(productsStocks, shoppingCart);
         double sum = 0;
         for (Map.Entry<ProductType, Integer> productTypeAndAmount : shoppingCart.entrySet()) {
             ProductType product = productTypeAndAmount.getKey();
@@ -44,5 +45,5 @@ public class ProductService {
     public void adjustProductQuantity(Map<ProductType, Integer> shoppingCart) {
         StockValidator.validateStock(productsStocks, shoppingCart);
         shoppingCart.forEach((product, amount) -> productsStocks.put(product, productsStocks.get(product) - amount));
-        }
+    }
 }
