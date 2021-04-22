@@ -37,12 +37,12 @@ public class ProductService {
         return sum;
     }
 
-    public Map<ProductType, Integer> getAllProductsStock() {
+    public Map<ProductType, Integer> getAllProductsStocks() {
         return productsStocks;
     }
 
     public void adjustProductQuantity(Map<ProductType, Integer> shoppingCart) {
-        new StockValidator().validateStock(productsStocks, shoppingCart);
+        StockValidator.validateStock(productsStocks, shoppingCart);
         shoppingCart.forEach((product, amount) -> productsStocks.put(product, productsStocks.get(product) - amount));
         }
 }

@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Map;
 
 @RestController
-@RequestMapping(value = "/product")
+@RequestMapping(value = "/products")
 public class ProductController {
     ProductService productService;
 
@@ -33,8 +33,8 @@ public class ProductController {
         return productService.calculateCartPrice(shoppingCart);
     }
 
-    @GetMapping(value = "/stock")
+    @GetMapping(value = "/stocks")
     public Map<ProductType, Integer> getAllProductsStock() {
-        return productService.getAllProductsStock();
+        return productService.getAllProductsStocks();
     }
  }
