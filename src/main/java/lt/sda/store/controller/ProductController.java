@@ -32,7 +32,7 @@ public class ProductController {
         return productService.calculateCartPrice(shoppingCart);
     }
 
-    @PostMapping(value = "/cart/buy")
+    @PostMapping(value = "/buy")
     public Map<ProductType, Integer> buyProducts(@RequestBody Map<ProductType, Integer> shoppingCart) {
         productService.adjustProductQuantity(shoppingCart);
         return productService.getAllProductsStocks();
