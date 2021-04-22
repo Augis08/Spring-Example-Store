@@ -33,11 +33,9 @@ public class ProductController {
     }
 
     @PostMapping(value = "/buy")
-    public Map<ProductType, Integer> buyProducts(@RequestBody Map<ProductType, Integer> shoppingCart) {
+    public void buyProducts(@RequestBody Map<ProductType, Integer> shoppingCart) {
         productService.adjustProductQuantity(shoppingCart);
-        return productService.getAllProductsStocks();
     }
-
 
     @GetMapping(value = "/stocks")
     public Map<ProductType, Integer> getAllProductsStocks() {
