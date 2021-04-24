@@ -11,12 +11,16 @@ import java.util.Map;
 public class ProductService {
     Map<ProductType, Double> allProductsPrices;
     Map<ProductType, Integer> productsStocks;
+    StockValidator stockValidator;
+
 
     @Autowired
     public ProductService(Map<ProductType, Double> allProductsPrices,
-                          Map<ProductType, Integer> productsStocks) {
+                          Map<ProductType, Integer> productsStocks,
+                          StockValidator stockValidator) {
         this.allProductsPrices = allProductsPrices;
         this.productsStocks = productsStocks;
+        this.stockValidator = stockValidator;
     }
 
     public Map<ProductType, Double> getAllProductPrices() {
@@ -28,14 +32,13 @@ public class ProductService {
     }
 
     public Double calculateCartPrice(Map<ProductType, Integer> shoppingCart) {
-        StockValidator.validateStock(productsStocks, shoppingCart);
-        double sum = 0;
-        for (Map.Entry<ProductType, Integer> productTypeAndAmount : shoppingCart.entrySet()) {
-            ProductType product = productTypeAndAmount.getKey();
-            Integer value = productTypeAndAmount.getValue();
-            sum += value * getPrice(product);
-        }
-        return sum;
+        stockValidator.validateStock(productsStocks, shoppingCart);
+        return shoppingCart
+                .entrySet()
+                .stream()
+                .mapToDouble(productTypeAndAmount
+                        -> getPrice(productTypeAndAmount.getKey()) * productTypeAndAmount.getValue())
+                .sum();
     }
 
     public Map<ProductType, Integer> getAllProductsStocks() {
@@ -43,7 +46,7 @@ public class ProductService {
     }
 
     public void updateProductsStocks(Map<ProductType, Integer> shoppingCart) {
-        StockValidator.validateStock(productsStocks, shoppingCart);
+        stockValidator.validateStock(productsStocks, shoppingCart);
         shoppingCart.forEach((product, amount) -> productsStocks.put(product, productsStocks.get(product) - amount));
     }
 }

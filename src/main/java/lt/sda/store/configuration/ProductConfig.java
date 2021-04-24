@@ -1,6 +1,7 @@
 package lt.sda.store.configuration;
 
 import lt.sda.store.model.ProductType;
+import lt.sda.store.validator.StockValidator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -28,5 +29,10 @@ public class ProductConfig {
         productsStocks.put(ProductType.ORANGE, productStock.getOrange());
         productsStocks.put(ProductType.POTATO, productStock.getPotato());
         return productsStocks;
+    }
+
+    @Bean
+    public StockValidator stockValidator (){
+        return new StockValidator();
     }
 }
